@@ -1,0 +1,23 @@
+html, body {
+    font-family: 'Raleway', sans-serif;
+}
+
+header {
+    text-align: center;
+    display: table;
+    margin: 0 auto;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline;
+    padding: 10px;
+}
+
+.instructions {
+    float: left;
+    max-width: 200px;
+}
