@@ -126,15 +126,25 @@ startGame : function() {
 },
 
 //GamePlay Function
+gamePlay : function() {
+    console.log("you clicked a card!")
+}
+    //when you click a card, it revals the dog assigned to it
+        //how does it know which dog is assigned to it?
+        //if it is clicks, move it into an array
+        //then it waits for another click
+    //the second card is clicked
+        //loop through the array to compare
+        //if they are the same value, leave them revealed
+        //if they aren't the same value, turn back over
+    //if all cards are revealed before timer == 0, round++
+    //else, if all cards are not revealed, remove cards and prompt user to try again
+
 
     //if you win, rounds++
     //if you don't win, "try again, press reset"
 
 }
-
-    //create back of cards into a grid
-
-    //
 
 
 
@@ -152,6 +162,8 @@ const restartButton = document.querySelector('#reset');
 console.log(startButton)
 console.log(document.querySelector('.cardContainer'))
 startButton.addEventListener('click', game.startGame)
+const cards = document.querySelectorAll('.card')
+cards.addEventListener('click', game.gamePlay)
 
 
 //FUNCTION - matching cards?
