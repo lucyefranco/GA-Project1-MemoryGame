@@ -16,6 +16,7 @@ const game = {
 
 
 getCards : function() {
+    console.log("this function is working")
     for (i=1; i < 29; i++) {
     //creating the img element
     let card = document.createElement('img')
@@ -30,6 +31,7 @@ getCards : function() {
 
     //Randomizing the cards that will be pulled
 shuffleCards : function() {
+    console.log("this function is working")
     for (let i = this.cardDeck.length - 1; i > 0; i--) {
         //this is the shuffle, figuring out the new position that where each card will go
         let newPos = Math.floor(Math.random() * (i+1));
@@ -41,6 +43,7 @@ shuffleCards : function() {
 },
     //assigning the cards that will go into the game
 getCardsForRound : function() {
+    console.log("the getCardsForRound function works")
     if (this.round == 1){
         //5 card images will go into the game, making 10 total
         for(let i = 0; i < 5; i++) {
@@ -75,34 +78,58 @@ getCardsForRound : function() {
 },
 
 shuffleCards2 : function () {
+    console.log("shuffleCards2 works")
     for (let i = this.cardsForRound.length - 1; i > 0; i--) {
         //this is the shuffle, figuring out the new position that where each card will go
         let newPos2 = Math.floor(Math.random() * (i+1));
         //temporary holding spot for the card
         let temp2 = this.cardsForRound[i]
-        this.cardsForRound[i] = this.cardDeck[newPos2]
+        this.cardsForRound[i] = this.cardsForRound[newPos2]
         this.cardsForRound[newPos2] = temp2
     }
+    console.log(this.cardsForRound)
 },
+
+//this function doesnt work - debug later
+setUpTimer : function () {
+    const timerInterval = setInterval ((whateverTime) => {
+        timer = whateverTime
+        //what do we do each second
+        if (timer === 0) {
+            clearInterval(timerInterval)
+        } else {
+            timer--
+        }
+        //get it to show up in the DOM
+        document.getElementById('timer').innerHTML = `timer: ${timer}s`
+    }, 1000)
+},
+
     //create divs and assign 
 startGame : function() {
     game.getCards()
     game.shuffleCards()
     game.getCardsForRound()
     game.shuffleCards2()
+    game.setUpTimer(30)
     
     //make the amount of divs needs per round
     //can be done in two ways - if/else for each round, or loop through length of array
     //need to be able to randomize assigning elements of the array to the div
-    for(i = 0; i < this.cardsForRound.length; i++) {
+    for(i = 0; i < game.cardsForRound.length; i++) {
         let img = document.createElement('img')
         img.setAttribute('class','card')
         img.setAttribute('src','cards/card-back.jpg')
-        document.querySelector('#cardContainer').appendChild(img)
+        img.setAttribute('value', [i])
+        document.querySelector('.cardContainer').appendChild(img)
     }
+},
 
+//GamePlay Function
 
-}
+    //if you win, rounds++
+    //if you don't win, "try again, press reset"
+
 }
 
     //create back of cards into a grid
@@ -118,28 +145,13 @@ startGame : function() {
     //do I make two images? do I double it? It's going to be easier if you just make two files
 
 
-//FUNCTION - timer
-    //does this work??????
-function setUpTimer (whateverTime) {
-    const timerInterval = setInterval (() => {
-        timer = whateverTime
-        //what do we do each second
-        if (timer === 0) {
-            clearInterval(timerInterval)
-        } else {
-            timer--
-        }
-        //get it to show up in the DOM
-        document.getElementById('timer').innerHTML = `timer: ${timer}s`
-    }, 1000)
-}
 
 
-
-const startButton = document.querySelector('#start');
+const startButton = document.getElementById('start');
 const restartButton = document.querySelector('#reset');
-
-startButton.addEventListener('click',game.startGame())
+console.log(startButton)
+console.log(document.querySelector('.cardContainer'))
+startButton.addEventListener('click', game.startGame)
 
 
 //FUNCTION - matching cards?

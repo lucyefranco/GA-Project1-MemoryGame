@@ -25,3 +25,9 @@ li {
 .card {
     max-height: 100px;
 }
+
+.cardContainer {
+    border: 1px solid red;
+    width: 100px;
+    height: 100px;
+}
