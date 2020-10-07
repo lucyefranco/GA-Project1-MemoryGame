@@ -21,3 +21,7 @@ li {
     float: left;
     max-width: 200px;
 }
+
+.card {
+    max-height: 100px;
+}

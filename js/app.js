@@ -1,7 +1,7 @@
 console.log("You're doing great!")
 
-const startButton = document.querySelector('.start')
-const restartButton = document.querySelector('.reset')
+
+
 
 const game = {
     //timer set to 30
@@ -10,9 +10,11 @@ const game = {
     round: 1,
     //empty card array
     cardDeck: [],
-    //cards to be moved to grid
+    //cards to be moved to grid for the round
+    cardsForRound: [],
+    //container for the cards to go into
 
-    //Moving the cards into the array
+
 getCards : function() {
     for (i=1; i < 29; i++) {
     //creating the img element
@@ -20,6 +22,7 @@ getCards : function() {
     //set source attribute so the actual image is pulled
     card.setAttribute('src', 'cards/Card-' + [i] + '.jpg')
     card.setAttribute('id', [i])
+    card.setAttribute('value', [i])
     this.cardDeck.push(card)
     }
     //don't double the cards here to make sure all matching cards get pulled together
@@ -36,45 +39,77 @@ shuffleCards : function() {
         this.cardDeck[newPos] = temp
     }
 },
-
     //assigning the cards that will go into the game
-moveCardsToGrid : function(){
+getCardsForRound : function() {
     if (this.round == 1){
         //5 card images will go into the game, making 10 total
-        for(let i = 0; i < 6; i++) {
-            //shift function
+        for(let i = 0; i < 5; i++) {
+            //takes first card
+            let temp2 = this.cardDeck.shift()
+            //pushes it to new array TWICE - to be able to match cards
+            this.cardsForRound.push(temp2)
+            this.cardsForRound.push(temp2)
         } 
-
     } else if (this.round == 2) {
-        for(let i=0; i < 11; i++){
-        //shift function
+        for(let i=0; i < 10; i++){
+            temp2 = this.cardDeck.shift()
+            this.cardsForRound.push(temp2)
+            this.cardsForRound.push(temp2)
         }
 
     } else if (this.round == 3){
-        for(let i=0; i < 16; i++){
-            //shift function
+        for(let i=0; i < 15; i++){
+            temp2 = this.cardDeck.shift()
+            this.cardsForRound.push(temp2)
+            this.cardsForRound.push(temp2)
         }
+    } else if (this.round == 4){
+        for(let i=0; i < 20; i++){
+            temp2 = this.cardDeck.shift()
+            this.cardsForRound.push(temp2)
+            this.cardsForRound.push(temp2)
+        }
+    } else {
+        console.log('game over')
     }
 },
+
+shuffleCards2 : function () {
+    for (let i = this.cardsForRound.length - 1; i > 0; i--) {
+        //this is the shuffle, figuring out the new position that where each card will go
+        let newPos2 = Math.floor(Math.random() * (i+1));
+        //temporary holding spot for the card
+        let temp2 = this.cardsForRound[i]
+        this.cardsForRound[i] = this.cardDeck[newPos2]
+        this.cardsForRound[newPos2] = temp2
+    }
+},
+    //create divs and assign 
+startGame : function() {
+    game.getCards()
+    game.shuffleCards()
+    game.getCardsForRound()
+    game.shuffleCards2()
     
+    //make the amount of divs needs per round
+    //can be done in two ways - if/else for each round, or loop through length of array
+    //need to be able to randomize assigning elements of the array to the div
+    for(i = 0; i < this.cardsForRound.length; i++) {
+        let img = document.createElement('img')
+        img.setAttribute('class','card')
+        img.setAttribute('src','cards/card-back.jpg')
+        document.querySelector('#cardContainer').appendChild(img)
+    }
+
+
 }
-
-    //shuffle cards here
-
-    //pull out the actual cards that will be used
-
-    //double the cards
+}
 
     //create back of cards into a grid
 
     //
 
-}
 
-game.getCards()
-console.log(game.cardDeck)
-game.shuffleCards()
-console.log(game.cardDeck)
 
 //FUNCTION - set up cards
 
@@ -101,6 +136,12 @@ function setUpTimer (whateverTime) {
 
 
 
+const startButton = document.querySelector('#start');
+const restartButton = document.querySelector('#reset');
+
+startButton.addEventListener('click',game.startGame())
+
+
 //FUNCTION - matching cards?
     //by value? by class?
     //add event listeners to cards through this function?
@@ -115,5 +156,5 @@ function setUpTimer (whateverTime) {
 
 //event-listener button 
     //what happens when you press the 
-
-//event-listener cards
+    
+    //event-listener cards
