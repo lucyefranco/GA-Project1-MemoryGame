@@ -13,6 +13,7 @@ const game = {
     //cards to be moved to grid for the round
     cardsForRound: [],
     //container for the cards to go into
+    selectedCards: [],
 
 
 getCards : function() {
@@ -23,7 +24,6 @@ getCards : function() {
     //set source attribute so the actual image is pulled
     card.setAttribute('src', 'cards/Card-' + [i] + '.jpg')
     card.setAttribute('id', [i])
-    card.setAttribute('value', [i])
     this.cardDeck.push(card)
     }
     //don't double the cards here to make sure all matching cards get pulled together
@@ -49,6 +49,8 @@ getCardsForRound : function() {
         for(let i = 0; i < 5; i++) {
             //takes first card
             let temp2 = this.cardDeck.shift()
+            //set value as the same
+            temp2.setAttribute('value', [i])
             //pushes it to new array TWICE - to be able to match cards
             this.cardsForRound.push(temp2)
             this.cardsForRound.push(temp2)
@@ -105,6 +107,37 @@ setUpTimer : function () {
     }, 1000)
 },
 
+//GamePlay Function
+gamePlay : function() {
+    console.log("you clicked a card!")
+    document.onclick = function(e) {
+        let firstSelected = e.target.getAttribute('id')
+        console.log(firstSelected)
+    }
+
+    //if card is clicked
+        //move element into selectedCards array
+        //change src to the src in corresponding value=array position
+        //remove event listener by changing class
+        //wait for 2nd card to be clicked
+    //2nd card is clicked
+        //move that element into selectedCards array
+        //compare values in the array
+            //if values !== each other, 
+                //change src to back of card
+            //if values == each other,
+                //remove event listener by changing class
+                //do not change src
+    //if all classes are changed and timer > 0 - player wins
+        //clear all cards
+        //if rounds < 4, rounds++
+        //if rounds = 4, you win! prompt to press reset
+    //if all classes are not changed and timer = 0 - player loses
+        //remove all cards
+        //prompt to press start
+
+},
+
     //create divs and assign 
 startGame : function() {
     game.getCards()
@@ -121,64 +154,21 @@ startGame : function() {
         img.setAttribute('class','card')
         img.setAttribute('src','cards/card-back.jpg')
         img.setAttribute('value', [i])
+        img.addEventListener('click', game.gamePlay)
         document.querySelector('.cardContainer').appendChild(img)
     }
 },
 
-//GamePlay Function
-gamePlay : function() {
-    console.log("you clicked a card!")
-}
-    //when you click a card, it revals the dog assigned to it
-        //how does it know which dog is assigned to it?
-        //if it is clicks, move it into an array
-        //then it waits for another click
-    //the second card is clicked
-        //loop through the array to compare
-        //if they are the same value, leave them revealed
-        //if they aren't the same value, turn back over
-    //if all cards are revealed before timer == 0, round++
-    //else, if all cards are not revealed, remove cards and prompt user to try again
 
-
-    //if you win, rounds++
-    //if you don't win, "try again, press reset"
 
 }
 
 
 
-//FUNCTION - set up cards
 
-    //depending on round number, how many cards are pulled?
-    //put the cards in the array
-    //do I make two images? do I double it? It's going to be easier if you just make two files
-
-
-
-
+// Making start and reset button
 const startButton = document.getElementById('start');
 const restartButton = document.querySelector('#reset');
-console.log(startButton)
-console.log(document.querySelector('.cardContainer'))
+
 startButton.addEventListener('click', game.startGame)
-const cards = document.querySelectorAll('.card')
-cards.addEventListener('click', game.gamePlay)
 
-
-//FUNCTION - matching cards?
-    //by value? by class?
-    //add event listeners to cards through this function?
-
-
-
-//Problems to solve
-    //how do you end the game??
-    //rounds completed?
-
-
-
-//event-listener button 
-    //what happens when you press the 
-    
-    //event-listener cards
