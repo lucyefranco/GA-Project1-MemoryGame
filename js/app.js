@@ -57,7 +57,8 @@ getCardsForRound : function() {
         } 
     } else if (this.round == 2) {
         for(let i=0; i < 10; i++){
-            temp2 = this.cardDeck.shift()
+            temp2 = this.cardDeck.shift()           
+            temp2.setAttribute('value', [i])
             this.cardsForRound.push(temp2)
             this.cardsForRound.push(temp2)
         }
@@ -65,6 +66,7 @@ getCardsForRound : function() {
     } else if (this.round == 3){
         for(let i=0; i < 15; i++){
             temp2 = this.cardDeck.shift()
+            temp2.setAttribute('value', [i])
             this.cardsForRound.push(temp2)
             this.cardsForRound.push(temp2)
         }
@@ -111,8 +113,8 @@ setUpTimer : function () {
 gamePlay : function() {
     console.log("you clicked a card!")
     document.onclick = function(e) {
-        let firstSelected = e.target.getAttribute('value')
-        console.log(firstSelected)
+        let firstSelected = e.target.getAttribute('src-value')
+        e.target.setAttribute('src', firstSelected)
     }
 
     //if card is clicked
@@ -149,7 +151,7 @@ trial : function() {
         img.addEventListener('click', game.gamePlay)
         document.querySelector('.cardContainer').append(img)
 
-        //because there's two of the same with image value
+        //because there's two of the same with image value???
     }
 },
 
