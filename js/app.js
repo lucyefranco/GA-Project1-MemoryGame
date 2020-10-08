@@ -22,8 +22,8 @@ getCards : function() {
     //creating the img element
     let card = document.createElement('img')
     //set source attribute so the actual image is pulled
-    card.setAttribute('src', 'cards/Card-' + [i] + '.jpg')
-    card.setAttribute('id', [i])
+    card.setAttribute('src-value', 'cards/Card-' + [i] + '.jpg')
+    //card.setAttribute('id', [i])
     this.cardDeck.push(card)
     }
     //don't double the cards here to make sure all matching cards get pulled together
@@ -111,7 +111,7 @@ setUpTimer : function () {
 gamePlay : function() {
     console.log("you clicked a card!")
     document.onclick = function(e) {
-        let firstSelected = e.target.getAttribute('id')
+        let firstSelected = e.target.getAttribute('value')
         console.log(firstSelected)
     }
 
@@ -138,30 +138,42 @@ gamePlay : function() {
 
 },
 
+trial : function() {
+    console.log(game.cardsForRound.length)
+    for(i = 0; i < game.cardsForRound.length; i++) {
+        console.log(i)
+        let img = this.cardsForRound[i]
+        console.log(img)
+        img.setAttribute('class','card')
+        img.setAttribute('src','cards/card-back.jpg')
+        img.addEventListener('click', game.gamePlay)
+        document.querySelector('.cardContainer').append(img)
+
+        //because there's two of the same with image value
+    }
+},
+
+
     //create divs and assign 
 startGame : function() {
     game.getCards()
     game.shuffleCards()
     game.getCardsForRound()
     game.shuffleCards2()
-    game.setUpTimer(30)
-    
+    //game.setUpTimer(30)
+    game.trial()
     //make the amount of divs needs per round
     //can be done in two ways - if/else for each round, or loop through length of array
     //need to be able to randomize assigning elements of the array to the div
-    for(i = 0; i < game.cardsForRound.length; i++) {
-        let img = document.createElement('img')
-        img.setAttribute('class','card')
-        img.setAttribute('src','cards/card-back.jpg')
-        img.setAttribute('value', [i])
-        img.addEventListener('click', game.gamePlay)
-        document.querySelector('.cardContainer').appendChild(img)
+    //for(i = 0; i < game.cardsForRound.length; i++) {
+    //    let img = game.cardsForRound[i]
+    //    img.setAttribute('class','card')
+    //    img.setAttribute('src','cards/card-back.jpg')
+    //    img.addEventListener('click', game.gamePlay)
+    //    document.querySelector('.cardContainer').appendChild(img)
     }
-},
-
-
-
 }
+
 
 
 
