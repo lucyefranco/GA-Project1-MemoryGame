@@ -7,7 +7,7 @@ const game = {
     //timer set to 30
     timer: 30,
     //starts at round 1
-    round: 1,
+    round: 2,
     //empty card array
     cardDeck: [],
     //cards to be moved to grid for the round
@@ -113,8 +113,21 @@ setUpTimer : function () {
 gamePlay : function() {
     console.log("you clicked a card!")
     document.onclick = function(e) {
-        let firstSelected = e.target.getAttribute('src-value')
-        e.target.setAttribute('src', firstSelected)
+        let clickedCard = e.target.getAttribute('src-value')
+        e.target.setAttribute('src', clickedCard)
+        game.selectedCards.push(clickedCard)
+        //move selected card to new array
+        if (game.selectedCards.length == 2){
+            if (game.selectedCards[0] == game.selectedCards[1]){
+            //move out of array
+            //change class to completed
+            } else {
+                
+            }
+
+
+        }
+
     }
 
     //if card is clicked
@@ -144,14 +157,17 @@ trial : function() {
     console.log(game.cardsForRound.length)
     for(i = 0; i < game.cardsForRound.length; i++) {
         console.log(i)
-        let img = this.cardsForRound[i]
-        console.log(img)
+        //let img = this.cardsForRound[i]
+        let img = document.createElement('img')
+        let srcValue = this.cardsForRound[i].getAttribute('src-value')
+        img.setAttribute('src-value', srcValue)
         img.setAttribute('class','card')
         img.setAttribute('src','cards/card-back.jpg')
         img.addEventListener('click', game.gamePlay)
         document.querySelector('.cardContainer').append(img)
 
         //because there's two of the same with image value???
+        //should I create a new element still but set the src-value to this.cardsforround[i].src-value
     }
 },
 
