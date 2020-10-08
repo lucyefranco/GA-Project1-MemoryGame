@@ -40,3 +40,7 @@ li {
     margin-right: auto;
     max-width: 500px;
 }
+
+p {
+    text-align: center;
+}
