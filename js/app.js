@@ -126,6 +126,8 @@ gamePlay : function() {
         if (game.selectedCards.length == 2){
             //compare src instead of whole target
             if (game.selectedCards[0].currentSrc == game.selectedCards[1].currentSrc){
+                //game.selectedCards[0].removeEventListener('click', game.gamePlay)
+                //game.selectedCards[1].removeEventListener('click', game.gamePlay)
                 game.selectedCards.shift();
                 game.selectedCards.shift();
                 console.log('you got a match!')
