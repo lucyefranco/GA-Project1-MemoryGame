@@ -20,7 +20,6 @@ const game = {
 
 
 getCards : function() {
-    console.log("this function is working")
     for (i=1; i < 29; i++) {
     //creating the img element
     let card = document.createElement('img')
@@ -35,7 +34,6 @@ getCards : function() {
 
     //Randomizing the cards that will be pulled
 shuffleCards : function() {
-    console.log("this function is working")
     for (let i = this.cardDeck.length - 1; i > 0; i--) {
         //this is the shuffle, figuring out the new position that where each card will go
         let newPos = Math.floor(Math.random() * (i+1));
@@ -47,7 +45,6 @@ shuffleCards : function() {
 },
     //assigning the cards that will go into the game
 getCardsForRound : function() {
-    console.log("the getCardsForRound function works")
     //if (this.round == 1){
         //5 card images will go into the game, making 10 total
         for(let i = 0; i < 10; i++) {
@@ -58,7 +55,7 @@ getCardsForRound : function() {
             //pushes it to new array TWICE - to be able to match cards
             this.cardsForRound.push(temp2)
             this.cardsForRound.push(temp2)
-        }     console.log(this.cardsForRound)
+        }
     //} else if (this.round == 2) {
     //    for(let i=0; i < 10; i++){
     //        temp2 = this.cardDeck.shift()           
@@ -87,7 +84,6 @@ getCardsForRound : function() {
 },
 
 shuffleCards2 : function () {
-    console.log("shuffleCards2 works")
     for (let i = this.cardsForRound.length - 1; i > 0; i--) {
         //this is the shuffle, figuring out the new position that where each card will go
         let newPos2 = Math.floor(Math.random() * (i+1));
@@ -105,7 +101,9 @@ setUpTimer : function () {
     let timerInterval = setInterval (() => {
         if (game.timer === 0) {
             clearInterval(timerInterval)
-            game.endGame()
+            if (this.matchedCards !== 10){
+                game.endGame()
+            }
         } else {
             game.timer--
         }
@@ -119,7 +117,6 @@ setUpTimer : function () {
 gamePlay : function() {
     console.log("you clicked a card!")
     document.onclick = function(e) {
-        console.log(e)
         let clickedCard = e.target
         let cardBack = e.target.getAttribute('src-value', clickedCard)
         clickedCard.setAttribute('src', cardBack)
@@ -134,6 +131,7 @@ gamePlay : function() {
                 console.log('you got a match!')
                 //remove event listener
                 game.matchedCards++
+                console.log(game.matchedCards)
             } else if (game.selectedCards[0].currentSrc !== game.selectedCards[1].currentSrc) {
                 console.log('these are not a match')
                 setTimeout(function() {
@@ -146,8 +144,26 @@ gamePlay : function() {
                 console.log ('error')
             }
             }
+        if (game.matchedCards == 10){
+            game.winGame()
         }
+        }
+},
 
+winGame: function(){
+    console.log('You win!')
+    game.timer = 0
+    let allCards = document.querySelectorAll('img')
+    for (i=0; i < allCards.length; i++){
+        let card1 = allCards[i]
+        card1.remove()
+    }
+    let youWin = document.createElement('p')
+    youWin.setAttribute('class','youWin')
+    document.querySelector('.cardContainer').append(youWin)
+    youWin.innerHTML = "You win! Press start to play again.";
+    startButton.addEventListener('click',game.startGame)
+    startConfetti();
 },
 
 endGame : function() {
@@ -162,22 +178,20 @@ endGame : function() {
         tryAgain.setAttribute('class','tryAgain')
         document.querySelector('.cardContainer').append(tryAgain)
         tryAgain.innerHTML = "Let's try again! Press the start button to begin.";
-        //need to fix you
         startButton.addEventListener('click',game.startGame)
         //clear arrays
-        for(i=0; i < game.cardDeck.length; i++){
-            game.cardDeck.shift()
+    } else {
+        let allCards = document.querySelectorAll('img')
+        for (i=0; i < allCards.length; i++){
+            let card1 = allCards[i]
+            card1.remove()
         }
-        for(i=0; i < game.cardsForRound.length; i++){
-            console.log(game.cardsForRound[i])
-            game.cardsForRound.shift()
-            //it's only removing one of each id, I need it remove both
-        }
-        for(i=0; i < game.matchedCards.length; i++){
-            game.matchedCards.shift()
-        }
-    } else if {
-        console.log('error')
+            let tryAgain = document.createElement('p')
+            tryAgain.setAttribute('class','tryAgain')
+            document.querySelector('.cardContainer').append(tryAgain)
+            tryAgain.innerHTML = "Let's try again! Press the start button to begin.";
+            startButton.addEventListener('click',game.startGame)
+        //clear arrays
     }
 
 },
@@ -194,9 +208,14 @@ trial : function() {
     }
 },
 
-
-    //create divs and assign 
 startGame : function() {
+    //clean out arrays
+    game.matchedCards = 0
+    game.cardDeck = []
+    game.cardsForRound = []
+    game.selectedCards = []
+
+    stopConfetti();
     game.getCards()
     game.shuffleCards()
     game.getCardsForRound()
@@ -204,12 +223,16 @@ startGame : function() {
     game.setUpTimer()
     game.trial()
     console.log(game.cardsForRound)
-    //need to figure you out
+
+    //removing p tags from previous games
     let p = document.querySelector('.tryAgain')
     if (p !== null){
         p.remove()
     }
-
+    let p2 = document.querySelector('.youWin')
+    if (p2 !== null){
+        p2.remove()
+    }
     }
 }
 
