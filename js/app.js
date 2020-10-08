@@ -117,18 +117,29 @@ gamePlay : function() {
         e.target.setAttribute('src', clickedCard)
         game.selectedCards.push(clickedCard)
         //move selected card to new array
+        console.log(game.selectedCards)
         if (game.selectedCards.length == 2){
             if (game.selectedCards[0] == game.selectedCards[1]){
+                game.selectedCards.shift();
+                game.selectedCards.shift();
+                console.log('you got a match!')
             //move out of array
             //change class to completed
+            } else if (game.selectedCards[0] !== game.selectedCards[1]) {
+
+                let changeBack = document.getAttribute('src', game.selectedCards[0])
+                changeBack.setAttribute('src','cards/card-back.jpg')
+                game.selectedCards.shift();
+                game.selectedCards.shift();
+                console.log('these are not a match')
             } else {
-                
+                console.log ('error')
+            }
+
             }
 
 
         }
-
-    }
 
     //if card is clicked
         //move element into selectedCards array
@@ -180,15 +191,6 @@ startGame : function() {
     game.shuffleCards2()
     //game.setUpTimer(30)
     game.trial()
-    //make the amount of divs needs per round
-    //can be done in two ways - if/else for each round, or loop through length of array
-    //need to be able to randomize assigning elements of the array to the div
-    //for(i = 0; i < game.cardsForRound.length; i++) {
-    //    let img = game.cardsForRound[i]
-    //    img.setAttribute('class','card')
-    //    img.setAttribute('src','cards/card-back.jpg')
-    //    img.addEventListener('click', game.gamePlay)
-    //    document.querySelector('.cardContainer').appendChild(img)
     }
 }
 
