@@ -163,7 +163,6 @@ winGame: function(){
     document.querySelector('.cardContainer').append(youWin)
     youWin.innerHTML = "You win! Press start to play again.";
     startButton.addEventListener('click',game.startGame)
-    startConfetti();
 },
 
 endGame : function() {
@@ -215,14 +214,12 @@ startGame : function() {
     game.cardsForRound = []
     game.selectedCards = []
 
-    stopConfetti();
     game.getCards()
     game.shuffleCards()
     game.getCardsForRound()
     game.shuffleCards2()
     game.setUpTimer()
     game.trial()
-    console.log(game.cardsForRound)
 
     //removing p tags from previous games
     let p = document.querySelector('.tryAgain')
