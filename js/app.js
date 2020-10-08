@@ -5,7 +5,7 @@ console.log("You're doing great!")
 
 const game = {
     //timer set to 30
-    timer: 30,
+    //timer: 30,
     //starts at round 1
     round: 1,
     //empty card array
@@ -14,6 +14,9 @@ const game = {
     cardsForRound: [],
     //container for the cards to go into
     selectedCards: [],
+    //points?
+    matchedCards: 0,
+    //if matchedCards = 10 before timer = 0, you win!
 
 
 getCards : function() {
@@ -96,16 +99,17 @@ shuffleCards2 : function () {
 
 //this function doesnt work - debug later
 setUpTimer : function () {
+    let timer = 30
+    startButton.removeEventListener('click', game.startGame)
     let timerInterval = setInterval (() => {
-        timer = 30
-        //what do we do each second
         if (timer === 0) {
             clearInterval(timerInterval)
         } else {
             timer--
         }
+
         //get it to show up in the DOM
-        document.getElementById('timer').innerHTML = `timer: ${timer}s`
+        document.getElementById('timer').innerHTML = `Timer: ${timer}s`
     }, 1000)
 },
 
@@ -123,19 +127,18 @@ gamePlay : function() {
                 game.selectedCards.shift();
                 game.selectedCards.shift();
                 console.log('you got a match!')
+                game.matchedCards++
             //move out of array
             //change class to completed
             } else if (game.selectedCards[0] !== game.selectedCards[1]) {
-
-                let changeBack = document.getAttribute('src', game.selectedCards[0])
-                changeBack.setAttribute('src','cards/card-back.jpg')
+                //change src of clicked cards back to the card back
+                let changeBack = document.querySelectorAll('img').setAttribute('src', 'cards/card-back.jpg')
                 game.selectedCards.shift();
                 game.selectedCards.shift();
                 console.log('these are not a match')
             } else {
                 console.log ('error')
             }
-
             }
 
 
