@@ -7,7 +7,7 @@ const game = {
     //timer set to 30
     timer: 30,
     //starts at round 1
-    round: 2,
+    round: 1,
     //empty card array
     cardDeck: [],
     //cards to be moved to grid for the round
@@ -46,7 +46,7 @@ getCardsForRound : function() {
     console.log("the getCardsForRound function works")
     if (this.round == 1){
         //5 card images will go into the game, making 10 total
-        for(let i = 0; i < 5; i++) {
+        for(let i = 0; i < 10; i++) {
             //takes first card
             let temp2 = this.cardDeck.shift()
             //set value as the same
@@ -55,29 +55,29 @@ getCardsForRound : function() {
             this.cardsForRound.push(temp2)
             this.cardsForRound.push(temp2)
         } 
-    } else if (this.round == 2) {
-        for(let i=0; i < 10; i++){
-            temp2 = this.cardDeck.shift()           
-            temp2.setAttribute('value', [i])
-            this.cardsForRound.push(temp2)
-            this.cardsForRound.push(temp2)
-        }
-
-    } else if (this.round == 3){
-        for(let i=0; i < 15; i++){
-            temp2 = this.cardDeck.shift()
-            temp2.setAttribute('value', [i])
-            this.cardsForRound.push(temp2)
-            this.cardsForRound.push(temp2)
-        }
-    } else if (this.round == 4){
-        for(let i=0; i < 20; i++){
-            temp2 = this.cardDeck.shift()
-            this.cardsForRound.push(temp2)
-            this.cardsForRound.push(temp2)
-        }
-    } else {
-        console.log('game over')
+    //} else if (this.round == 2) {
+    //    for(let i=0; i < 10; i++){
+    //        temp2 = this.cardDeck.shift()           
+    //        temp2.setAttribute('value', [i])
+    //        this.cardsForRound.push(temp2)
+    //        this.cardsForRound.push(temp2)
+    //    }
+//
+    //} else if (this.round == 3){
+    //    for(let i=0; i < 15; i++){
+    //        temp2 = this.cardDeck.shift()
+    //        temp2.setAttribute('value', [i])
+    //        this.cardsForRound.push(temp2)
+    //        this.cardsForRound.push(temp2)
+    //    }
+    //} else if (this.round == 4){
+    //    for(let i=0; i < 20; i++){
+    //        temp2 = this.cardDeck.shift()
+    //        this.cardsForRound.push(temp2)
+    //        this.cardsForRound.push(temp2)
+    //    }
+    //} else {
+    //    console.log('game over')
     }
 },
 
