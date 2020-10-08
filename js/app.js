@@ -96,8 +96,8 @@ shuffleCards2 : function () {
 
 //this function doesnt work - debug later
 setUpTimer : function () {
-    const timerInterval = setInterval ((whateverTime) => {
-        timer = whateverTime
+    let timerInterval = setInterval (() => {
+        timer = 30
         //what do we do each second
         if (timer === 0) {
             clearInterval(timerInterval)
@@ -141,27 +141,6 @@ gamePlay : function() {
 
         }
 
-    //if card is clicked
-        //move element into selectedCards array
-        //change src to the src in corresponding value=array position
-        //remove event listener by changing class
-        //wait for 2nd card to be clicked
-    //2nd card is clicked
-        //move that element into selectedCards array
-        //compare values in the array
-            //if values !== each other, 
-                //change src to back of card
-            //if values == each other,
-                //remove event listener by changing class
-                //do not change src
-    //if all classes are changed and timer > 0 - player wins
-        //clear all cards
-        //if rounds < 4, rounds++
-        //if rounds = 4, you win! prompt to press reset
-    //if all classes are not changed and timer = 0 - player loses
-        //remove all cards
-        //prompt to press start
-
 },
 
 trial : function() {
@@ -189,7 +168,7 @@ startGame : function() {
     game.shuffleCards()
     game.getCardsForRound()
     game.shuffleCards2()
-    //game.setUpTimer(30)
+    game.setUpTimer()
     game.trial()
     }
 }
