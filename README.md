@@ -2,7 +2,7 @@
 
 For my first project at General Assembly, I have created a memory/concentration game. 
 
-**Motivation**git 
+**Motivation**
 My general motivation for choosing a memory/concentration game was to master the logic of retrieving values and comparing them. I felt like it was something I could accomplish in the amount of time given
 
 **Screenshots**
@@ -18,7 +18,7 @@ Technologies & Code Snippets
 VS Code
 
 Credits
-1. Liana's Party Room
+1. Liana's Breakout Room - everyone who passed through just to say hi or review some code, you all helped me not only with my code, but also given me the camaraderie I needed to get through it!
 
 Future Development
   * Add multiple rounds to populate more cards
