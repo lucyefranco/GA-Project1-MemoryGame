@@ -5,7 +5,7 @@ console.log("You're doing great!")
 
 const game = {
     //timer set to 30
-    timer: 30,
+    timer: 60,
     //starts at round 1
     round: 1,
     //empty card array
@@ -96,7 +96,7 @@ shuffleCards2 : function () {
 
 //this function doesnt work - debug later
 setUpTimer : function () {
-    game.timer = 30
+    game.timer = 60
     startButton.removeEventListener('click', game.startGame)
     let timerInterval = setInterval (() => {
         if (game.timer === 0) {
@@ -115,14 +115,12 @@ setUpTimer : function () {
 
 //GamePlay Function
 gamePlay : function() {
-    console.log("you clicked a card!")
     document.onclick = function(e) {
         let clickedCard = e.target
         let cardBack = e.target.getAttribute('src-value', clickedCard)
         clickedCard.setAttribute('src', cardBack)
         game.selectedCards.push(clickedCard)
         //move selected card to new array
-        console.log(game.selectedCards)
         if (game.selectedCards.length == 2){
             //compare src instead of whole target
             if (game.selectedCards[0].currentSrc == game.selectedCards[1].currentSrc){
@@ -133,6 +131,7 @@ gamePlay : function() {
                 console.log('you got a match!')
                 //remove event listener
                 game.matchedCards++
+                document.getElementById('matchedCards').innerHTML = `Matched Cards: ${game.matchedCards}`
                 console.log(game.matchedCards)
             } else if (game.selectedCards[0].currentSrc !== game.selectedCards[1].currentSrc) {
                 console.log('these are not a match')
@@ -165,6 +164,7 @@ winGame: function(){
     document.querySelector('.cardContainer').append(youWin)
     youWin.innerHTML = "You win! Press start to play again.";
     startButton.addEventListener('click',game.startGame)
+    //if (document.querySelector)
 },
 
 endGame : function() {
@@ -222,6 +222,9 @@ startGame : function() {
     game.shuffleCards2()
     game.setUpTimer()
     game.trial()
+
+    //update matched cards HTML
+    document.getElementById('matchedCards').innerHTML = `Matched Cards: ${game.matchedCards}`
 
     //removing p tags from previous games
     let p = document.querySelector('.tryAgain')
