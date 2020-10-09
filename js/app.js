@@ -153,21 +153,27 @@ gamePlay : function() {
 
 winGame: function(){
     console.log('You win!')
+    restartButton.removeEventListener('click', game.endGame)
     game.timer = 0
     let allCards = document.querySelectorAll('img')
     for (i=0; i < allCards.length; i++){
         let card1 = allCards[i]
         card1.remove()
     }
-    let youWin = document.createElement('p')
-    youWin.setAttribute('class','youWin')
-    document.querySelector('.cardContainer').append(youWin)
-    youWin.innerHTML = "You win! Press start to play again.";
-    startButton.addEventListener('click',game.startGame)
-    //if (document.querySelector)
+    if (document.querySelector('.results') == null){
+        let youWin = document.createElement('p')
+        youWin.setAttribute('id','youWin')
+        youWin.setAttribute('class','results')
+        document.querySelector('.cardContainer').append(youWin)
+        youWin.innerHTML = "You win! Press start to play again.";
+        startButton.addEventListener('click',game.startGame)
+    }
+
+
 },
 
 endGame : function() {
+    restartButton.removeEventListener('click', game.endGame)
     if (game.timer == 0 && this.matchedCards < 10){
         let allCards = document.querySelectorAll('img')
         for (i=0; i < allCards.length; i++){
@@ -176,7 +182,8 @@ endGame : function() {
         }
         console.log('try again')
         let tryAgain = document.createElement('p')
-        tryAgain.setAttribute('class','tryAgain')
+        tryAgain.setAttribute('class','results')
+        tryAgain.setAttribute('id','tryAgain')
         document.querySelector('.cardContainer').append(tryAgain)
         tryAgain.innerHTML = "Let's try again! Press the start button to begin.";
         startButton.addEventListener('click',game.startGame)
@@ -187,12 +194,14 @@ endGame : function() {
             let card1 = allCards[i]
             card1.remove()
         }
+        if (document.querySelector('.results') == null){
             let tryAgain = document.createElement('p')
-            tryAgain.setAttribute('class','tryAgain')
+            tryAgain.setAttribute('class','results')
+            tryAgain.setAttribute('id', 'tryAgain')
             document.querySelector('.cardContainer').append(tryAgain)
             tryAgain.innerHTML = "Let's try again! Press the start button to begin.";
             startButton.addEventListener('click',game.startGame)
-        //clear arrays
+        }
     }
 
 },
@@ -227,15 +236,11 @@ startGame : function() {
     document.getElementById('matchedCards').innerHTML = `Matched Cards: ${game.matchedCards}`
 
     //removing p tags from previous games
-    let p = document.querySelector('.tryAgain')
+    let p = document.querySelector('.results')
     if (p !== null){
         p.remove()
     }
-    let p2 = document.querySelector('.youWin')
-    if (p2 !== null){
-        p2.remove()
-    }
-    }
+}
 }
 
 
