@@ -96,7 +96,7 @@ shuffleCards2 : function () {
 
 //this function doesnt work - debug later
 setUpTimer : function () {
-    game.timer = 30
+    game.timer = 60
     startButton.removeEventListener('click', game.startGame)
     let timerInterval = setInterval (() => {
         if (game.timer === 0) {
